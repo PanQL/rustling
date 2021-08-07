@@ -12,8 +12,6 @@ struct Color {
     blue: u8,
 }
 
-// I AM NOT DONE
-
 // Your task is to complete this implementation
 // and return an Ok result of inner type Color.
 // You need to create an implementation for a tuple of three integers,
@@ -25,20 +23,60 @@ struct Color {
 
 // Tuple implementation
 impl TryFrom<(i16, i16, i16)> for Color {
-    type Error = Box<dyn error::Error>;
-    fn try_from(tuple: (i16, i16, i16)) -> Result<Self, Self::Error> {}
+    type Error = ();
+    fn try_from(tuple: (i16, i16, i16)) -> Result<Self, Self::Error> {
+        let (red, green, blue) = tuple;
+        if (0 <= red && red < 256) && (0<= green && green <256) && (0 <= blue && blue < 256) {
+            Ok(Color {
+                red: red as u8,
+                green: green as u8,
+                blue: blue as u8
+            })
+        } else {
+            Err(())
+        }
+    }
 }
 
 // Array implementation
 impl TryFrom<[i16; 3]> for Color {
-    type Error = Box<dyn error::Error>;
-    fn try_from(arr: [i16; 3]) -> Result<Self, Self::Error> {}
+    type Error = ();
+    fn try_from(arr: [i16; 3]) -> Result<Self, Self::Error> {
+        let red = arr[0];
+        let green = arr[1];
+        let blue = arr[2];
+        if (0 <= red && red < 256) && (0<= green && green <256) && (0 <= blue && blue < 256) {
+            Ok(Color {
+                red: red as u8,
+                green: green as u8,
+                blue: blue as u8
+            })
+        } else {
+            Err(())
+        }
+    }
 }
 
 // Slice implementation
 impl TryFrom<&[i16]> for Color {
-    type Error = Box<dyn error::Error>;
-    fn try_from(slice: &[i16]) -> Result<Self, Self::Error> {}
+    type Error = ();
+    fn try_from(slice: &[i16]) -> Result<Self, Self::Error> {
+        if slice.len() != 3 {
+            return Err(());
+        }
+        let red = slice[0];
+        let green = slice[1];
+        let blue = slice[2];
+        if (0 <= red && red < 256) && (0<= green && green <256) && (0 <= blue && blue < 256) {
+            Ok(Color {
+                red: red as u8,
+                green: green as u8,
+                blue: blue as u8
+            })
+        } else {
+            Err(())
+        }
+    }
 }
 
 fn main() {
